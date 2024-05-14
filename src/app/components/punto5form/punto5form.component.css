@@ -1,0 +1,9 @@
+.container {
+    border: solid 2px black;
+    border-radius: 15px;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

@@ -1,0 +1,6 @@
+.table-wrapper {
+    overflow: auto; height: 22rem;
+}
+.table-wrapper thead th {
+    position: sticky; top: 0; z-index: 1;
+}

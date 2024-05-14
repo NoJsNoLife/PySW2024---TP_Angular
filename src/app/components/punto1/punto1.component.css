@@ -1,0 +1,17 @@
+
+.text-overflow {
+    height: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-wrap: wrap;
+    margin: auto;
+}
+img {
+    width: 250px;
+    height: 250px;
+}
+
+.modal-image {
+    width: 100px;
+    height: 100px;
+}

@@ -1,0 +1,68 @@
+<h1 class="text-center">Tienda de Productos</h1>
+<!-- Button trigger modal -->
+<div class="container d-flex justify-content-center">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="recuperarCarrito()">
+        <i class="bi bi-cart3"></i>Carrito
+      </button>
+</div>
+<!-- Button trigger modal -->
+
+  
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="bi bi-cart3"></i>Mi Carrito</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @if (carrito.length === 0) {
+                    <p>Tu carrito está vacío</p>
+                } @else {
+                    <section class="list-group overflow-auto" style="height: 18rem; max-height: 30rem;">
+                        @for (producto of carrito; track $index) {
+                            <a href="javascript:void(0)" class="list-group-item list-group-item-action" aria-current="true">
+                                <section class="d-flex w-100 justify-content-between">
+                                    <img  class="modal-image" src="assets/{{producto.img}}" alt="photo">
+                                    <div class="d-grid align-content-between">
+                                        <h5 class="mb-1">{{producto.nombre}}</h5>
+                                        <small class="d-flex justify-content-end">${{producto.precio}}</small>
+                                    </div>
+                                </section>
+                            </a>
+                        }
+                    </section>
+                }
+            </div>
+            <div class="modal-footer d-flex w-100 justify-content-between">
+                <h4>Total: ${{total.toLocaleString()}}</h4>
+                <div class="d-flex w-50 justify-content-between">
+                    <button type="button" class="btn btn-secondary" (click)="vaciarCarrito()">Vaciar Carrito</button>
+                    <button type="button" class="btn btn-primary">Comprar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 m-0 p-0">
+        @for (producto of productos; track producto.id) {
+            <div class="col">
+                <div class="card mx-auto w-75 h-100 p-0">
+                    <img class="card-img-top mx-auto d-block" src="assets/{{producto.img}}" alt="product image">
+                        <div class="card-body">
+                        <h5 class="card-title text-overflow">{{producto.nombre}}</h5>
+                        <p class="card-text text-overflow">{{producto.descripcion}}</p>
+                        <div class="card-footer text-center">
+                            <p class="card-text">${{producto.precio}}</p>
+                            <button type="button" class="btn btn-info" (click)="agregarAlCarrito(producto)">
+                            Agregar al Carrito
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
