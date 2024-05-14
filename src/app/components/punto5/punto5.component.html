@@ -1,35 +1,10 @@
-<div class="container d-flex flex-column justify-content-center align-items-center p-4">
+<div class="container d-flex flex-column justify-content-center align-items-center pt-3">
     <button type="button" class="btn btn-primary" (click)="createTicket()">Nuevo Ticket</button>
 </div>
 <section class="table-container p-0">
     <div class="table-wrapper">
-        <table class="table table-striped table-hover text-center caption-top">
+        <table datatable [dtOptions]="dtOptions" class="table table-responsive table-striped table-hover text-center caption-top">
             <caption>Lista de Tickets</caption>
-            <thead>
-                <tr class="table-primary">
-                    <th scope="col" class="col-1">#</th>
-                    <th scope="col" class="col-1">DNI</th>
-                    <th scope="col" class="col-1">Tipo de Espectador</th>
-                    <th scope="col" class="col-1">Fecha de Cobro</th>
-                    <th scope="col" class="col-1">Precio Cobrado</th>
-                    <th scope="col" class="col-2">Opciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                @for (ticket of tickets; track $index) {
-                    <tr>
-                        <th scope="row" (click)="mostrar(ticket)">{{$index + 1}}</th>
-                        <td>{{ticket._dni}}</td>
-                        <td>{{ticket._tipoEspectador}}</td>
-                        <td>{{ticket._fechaCobro | date: 'dd/MM/yyyy'}}</td>
-                        <td>{{ticket._precioCobrado | currency:'ARS $'}}</td>
-                        <td>
-                            <button type="button" class="btn btn-primary m-1" (click)="updateTicket(ticket)">Ver</button>
-                            <button type="button" class="btn btn-danger m-1" (click)="deleteTicket(ticket)">Eliminar</button>
-                        </td>
-                    </tr>
-                }
-            </tbody>
         </table>
     </div>
     <div class="table-wrapper overflow-y-auto">

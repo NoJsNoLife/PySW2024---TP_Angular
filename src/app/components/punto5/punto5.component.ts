@@ -4,26 +4,61 @@ import { TicketService } from '../../services/ticket.service';
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { TipoEspectador } from '../../utils/tipo-espectador.String';
-import { NgFor } from '@angular/common';
+import { ADTSettings } from 'angular-datatables/src/models/settings';
+import { DataTablesModule } from 'angular-datatables';
 
 @Component({
   selector: 'app-punto5',
   standalone: true,
-  imports: [ CurrencyPipe, DatePipe, NgFor ],
+  imports: [ CurrencyPipe, DatePipe, DataTablesModule ],
   templateUrl: './punto5.component.html',
   styleUrl: './punto5.component.css'
 })
 export class Punto5Component implements OnInit{
   private ticketService: TicketService = inject(TicketService)
   private router: Router = inject(Router)
+  private currencyPipe = new CurrencyPipe('en-US')
+  private datePipe = new DatePipe('en-US')
   tickets: Ticket[] = []
+  dtOptions: ADTSettings = {}
 
   ngOnInit(): void {
     this.ticketService.setTickets()
     this.tickets = this.ticketService.getTickets()
-    /*for(let t of this.tickets){
-      console.log(t, this.tickets.indexOf(t))
-    }*/
+    this.dtOptions = {
+      data: this.tickets,
+      columns: [
+        {
+          title: 'DNI',
+          data: '_dni'
+        },
+        {
+          title: 'Tipo de Espectador',
+          data: '_tipoEspectador'
+        },
+        {
+          title: 'Fecha de Cobro',
+          data: '_fechaCobro',
+          ngPipeInstance: this.datePipe,
+          ngPipeArgs: ['dd/MM/yyyy']
+        },
+        {
+          title: 'Precio Real',
+          data: '_precioReal',
+          ngPipeInstance: this.currencyPipe,
+          ngPipeArgs: ['ARS','symbol']
+        },
+        {
+          title: 'Precio Cobrado',
+          data: '_precioCobrado',
+          ngPipeInstance: this.currencyPipe,
+          ngPipeArgs: ['ARS','symbol']
+        }
+      ],
+      columnDefs: [
+        {className: "text-center col-1", targets: "_all"}
+      ]
+    }
   }
 
   mostrar(ticket: Ticket): void{
